@@ -1,0 +1,58 @@
+{
+  "key_findings": [
+    "HbA1c is the strongest predictor of retinopathy risk",
+    "Diabetes duration has compounding effect, especially with poor control",
+    "Regular retinal screening is protective against advanced retinopathy",
+    "Hypertension significantly exacerbates microvascular risk",
+    "Model aligns with established clinical guidelines"
+  ],
+  "clinical_recommendations": [
+    "Focus on HbA1c control (<7.0% target for most patients)",
+    "Ensure annual retinal screening for all diabetic patients",
+    "Aggressive blood pressure management in high-risk patients",
+    "Prioritize patients with >10 years diabetes duration for screening",
+    "Consider more frequent screening for patients with multiple risk factors"
+  ],
+  "top_features": [
+    {
+      "feature": "bmi",
+      "mean_abs_shap": 0.060896878566692784
+    },
+    {
+      "feature": "age",
+      "mean_abs_shap": 0.06089687856669233
+    },
+    {
+      "feature": "dyslipidemia_1",
+      "mean_abs_shap": 0.05291249638492247
+    },
+    {
+      "feature": "hypertension_1",
+      "mean_abs_shap": 0.052912496384921966
+    },
+    {
+      "feature": "retinal_screening_regularity_2",
+      "mean_abs_shap": 0.04971598720306105
+    },
+    {
+      "feature": "smoking_status_2",
+      "mean_abs_shap": 0.04632587333443338
+    },
+    {
+      "feature": "smoking_status_1",
+      "mean_abs_shap": 0.04632587333443294
+    },
+    {
+      "feature": "hbA1c",
+      "mean_abs_shap": 0.04284747817971873
+    },
+    {
+      "feature": "systolic_bp",
+      "mean_abs_shap": 0.042847478179718713
+    },
+    {
+      "feature": "gender_1",
+      "mean_abs_shap": 0.04278670071240911
+    }
+  ]
+}

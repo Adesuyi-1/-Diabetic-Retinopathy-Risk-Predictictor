@@ -1,0 +1,38 @@
+{
+  "key_findings": [
+    "Top predictor: Years With Diabetes",
+    "Second predictor: Hba1C",
+    "SHAP analysis confirms model aligns with clinical knowledge",
+    "Both modifiable and non-modifiable risk factors identified",
+    "Model provides interpretable risk factor contributions"
+  ],
+  "clinical_recommendations": [
+    "Focus on modifiable risk factors first (BMI, BP, HbA1c)",
+    "Ensure regular retinal screening for early detection",
+    "Prioritize patients with multiple risk factors",
+    "Use SHAP values to explain risk to patients",
+    "Consider personalized screening intervals based on risk profile"
+  ],
+  "top_5_features": [
+    {
+      "feature": "years_with_diabetes",
+      "mean_abs_shap": 0.21344381038051097
+    },
+    {
+      "feature": "hbA1c",
+      "mean_abs_shap": 0.16268366968165912
+    },
+    {
+      "feature": "retinal_screening_regularity_2",
+      "mean_abs_shap": 0.06503174682337001
+    },
+    {
+      "feature": "retinal_screening_regularity_1",
+      "mean_abs_shap": 0.044653374868592804
+    },
+    {
+      "feature": "systolic_bp",
+      "mean_abs_shap": 0.042525193291416796
+    }
+  ]
+}

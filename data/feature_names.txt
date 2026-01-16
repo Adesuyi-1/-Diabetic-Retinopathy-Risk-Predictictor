@@ -1,0 +1,15 @@
+age
+bmi
+hbA1c
+systolic_bp
+diastolic_bp
+years_with_diabetes
+serum_cholesterol
+gender_1
+smoking_status_1
+smoking_status_2
+hypertension_1
+dyslipidemia_1
+family_history_dr_1
+retinal_screening_regularity_1
+retinal_screening_regularity_2

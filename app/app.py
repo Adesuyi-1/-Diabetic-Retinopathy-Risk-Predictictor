@@ -1,19 +1,82 @@
-import streamlit as st
-import pandas as pd
+"""
+NUMPY COMPATIBILITY LAYER - MUST BE ABSOLUTE FIRST
+This fixes imports for models saved with numpy 1.24+ (_core) while running numpy 1.23 (core)
+"""
+import sys
+import builtins
+
+# Save the original __import__
+original_import = builtins.__import__
+
+# Create a patched import function
+def patched_import(name, *args, **kwargs):
+    # Redirect numpy._core to numpy.core
+    if name.startswith('numpy._core'):
+        name = name.replace('numpy._core', 'numpy.core')
+    elif name == 'numpy._core':
+        name = 'numpy.core'
+    
+    # Also handle numpy_core (older versions)
+    if name == 'numpy_core' or name.startswith('numpy_core.'):
+        name = name.replace('numpy_core', 'numpy.core')
+    
+    return original_import(name, *args, **kwargs)
+
+# Apply the patch BEFORE any numpy import
+builtins.__import__ = patched_import
+
+# NOW import numpy and create aliases
 import numpy as np
+
+# Create direct aliases for all possible numpy core paths
+sys.modules['numpy._core'] = np.core
+sys.modules['numpy_core'] = np.core
+sys.modules['numpy.core'] = np.core
+
+# Create aliases for common submodules
+for submodule in ['multiarray', 'umath', 'numeric', 'fromnumeric', 'shape_base', 'arrayprint', 'defchararray']:
+    if hasattr(np.core, submodule):
+        sys.modules[f'numpy._core.{submodule}'] = getattr(np.core, submodule)
+        sys.modules[f'numpy_core.{submodule}'] = getattr(np.core, submodule)
+
+print(f"✓ Numpy compatibility layer loaded (numpy {np.__version__})")
+print(f"  - numpy._core → numpy.core: {hasattr(np, '_core')} → {hasattr(np, 'core')}")
+
+# Now import your other packages
+import streamlit as st
 import joblib
+import pandas as pd
 import matplotlib.pyplot as plt
-import shap
 import plotly.graph_objects as go  
 import plotly.express as px  
 from plotly.subplots import make_subplots  
 import os
-import sys
 import io
 import base64
 from datetime import datetime
+import warnings
+
+# ===== FIX FOR SCIKIT-LEARN VERSION COMPATIBILITY =====
+# Handle scikit-learn version differences for InconsistentVersionWarning
+try:
+    from sklearn.exceptions import InconsistentVersionWarning
+    # Suppress scikit-learn version warning if it exists
+    warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+except ImportError:
+    # For older scikit-learn versions, create a dummy warning class
+    class InconsistentVersionWarning(UserWarning):
+        pass
+    # No need to filter since the warning doesn't exist
+    pass
+# ===== END OF FIX =====
+
+warnings.filterwarnings("ignore", category=UserWarning)
+
+# Optional: SHAP is commented out since it might not be installed
+# import shap
+
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib import colors

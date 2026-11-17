@@ -6,3 +6,9 @@ venv/
 __pycache__/
 *.pyc
 !models/final_random_forest.pkl
+
+# App runtime data
+app/data/
+
+# Model binaries (regenerable)
+models/*.pkl
